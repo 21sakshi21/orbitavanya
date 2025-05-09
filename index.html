@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVANYA AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="mainlogo_no_bg.png" alt="AVANYA AI Logo" class="logo-img">
+            <div class="logo-text">
+                <h1 id="title">AVANYA AI</h1>
+                <p id="tagline">Empowering Education with Intelligence</p>
+            </div>
+        </div>
+
+        <div class="login-btn-container">
+            <a href="dashboard.html" class="login-btn" id="admin-btn">
+                    <img src="admin.png" alt="Admin">
+                    <span>Login as Admin</span> 
+            </a>
+            <button class="login-btn" id="teacher-btn">
+                <img src="teacher.png" alt="Teacher">
+                <span>Login as Teacher</span>
+            </button>
+            <a href="students.html" class="login-btn" id="student-btn">
+                <img src="student.png" alt="Student">
+                <span>Login as Student</span>
+            </a>
+            <button class="login-btn" id="parent-btn">
+                <img src="parent.png" alt="Parent">
+                <span>Login as Parent</span>
+            </button>
+        </div>
+
+        <div class="language-selector">
+            <span id="language-label">Language :</span>
+            <select id="language-selector">
+                <option value="en">English</option>
+                <option value="mr">मराठी</option>
+                <option value="hi">हिन्दी</option>
+                <option value="ar">العربية</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                title: "AVANYA AI",
+                tagline: "Empowering Education with Intelligence",
+                admin: "<img src='admin.png' alt='Admin' style='height: 40px; width: auto;'><span>Login as Admin</span>",
+                teacher: "<img src='teacher.png' alt='Teacher' style='height: 40px; width: auto;'><span>Login as Teacher</span>",
+                student: "<img src='student.png' alt='Student' style='height: 40px; width: auto;'><span>Login as Student</span>",
+                parent: "<img src='parent.png' alt='Parent' style='height: 40px; width: auto;'><span>Login as Parent</span>",
+                language: "Language:"
+            },
+            mr: {
+                title: "अवन्या AI",
+                tagline: "बुद्धिमत्तेसह शिक्षण सक्षम करणे",
+                admin: "<img src='admin.png' alt='Admin' style='height: 40px; width: auto;'><span>अॅडमिन म्हणून लॉगिन करा</span>",
+                teacher: "<img src='teacher.png' alt='Teacher' style='height: 40px; width: auto;'><span>शिक्षक म्हणून लॉगिन करा</span>",
+                student: "<img src='student.png' alt='Student' style='height: 40px; width: auto;'><span>विद्यार्थी म्हणून लॉगिन करा</span>",
+                parent: "<img src='parent.png' alt='Parent' style='height: 40px; width: auto;'><span>पालक म्हणून लॉगिन करा</span>",
+                language: "भाषा:"
+            },
+            hi: {
+                title: "अवन्या AI",
+                tagline: "बुद्धिमत्ता के साथ शिक्षा को सशक्त बनाना",
+                admin: "<img src='admin.png' alt='Admin' style='height: 40px; width: auto;'><span>एडमिन के रूप में लॉगिन करें</span>",
+                teacher: "<img src='teacher.png' alt='Teacher' style='height: 40px; width: auto;'><span>शिक्षक के रूप में लॉगिन करें</span>",
+                student: "<img src='student.png' alt='Student' style='height: 40px; width: auto;'><span>छात्र के रूप में लॉगिन करें</span>",
+                parent: "<img src='parent.png' alt='Parent' style='height: 40px; width: auto;'><span>अभिभावक के रूप में लॉगिन करें</span>",
+                language: "भाषा:"
+            },
+            ar: {
+                title: "أفانيا الذكاء الاصطناعي",
+                tagline: "تمكين التعليم بالذكاء",
+                admin: "<span style='margin-left: 10px;'>تسجيل الدخول كمسؤول</span><img src='admin.png' alt='Admin' style='height: 40px; width: auto;'>",
+                teacher: "<span style='margin-left: 10px;'>تسجيل الدخول كمدرس</span><img src='teacher.png' alt='Teacher' style='height: 40px; width: auto;'>",
+                student: "<span style='margin-left: 10px;'>تسجيل الدخول كطالب</span><img src='student.png' alt='Student' style='height: 40px; width: auto;'>",
+                parent: "<span style='margin-left: 10px;'>تسجيل الدخول كولي أمر</span><img src='parent.png' alt='Parent' style='height: 40px; width: auto;'>",
+                language: "اللغة:"
+            }
+        };
+
+        // Get DOM elements
+        const titleElement = document.getElementById('title');
+        const taglineElement = document.getElementById('tagline');
+        const adminBtn = document.getElementById('admin-btn');
+        const teacherBtn = document.getElementById('teacher-btn');
+        const studentBtn = document.getElementById('student-btn');
+        const parentBtn = document.getElementById('parent-btn');
+        const languageLabel = document.getElementById('language-label');
+        const languageSelector = document.getElementById('language-selector');
+
+        // Function to update the UI based on selected language
+        function updateLanguage(lang) {
+            const langData = translations[lang];
+
+            // Update text content (now includes HTML for image and text)
+            titleElement.textContent = langData.title;
+            taglineElement.textContent = langData.tagline;
+            adminBtn.innerHTML = langData.admin;
+            teacherBtn.innerHTML = langData.teacher;
+            studentBtn.innerHTML = langData.student;
+            parentBtn.innerHTML = langData.parent;
+            languageLabel.textContent = langData.language;
+
+            // Update the selected option in the dropdown
+            languageSelector.value = lang;
+
+            // Handle RTL for Arabic
+            if (lang === 'ar') {
+                document.body.setAttribute('dir', 'rtl');
+            } else {
+                document.body.setAttribute('dir', 'ltr');
+            }
+
+            // Store the selected language in localStorage
+            localStorage.setItem('avanya-language-preference', lang);
+        }
+
+        // Event listener for language selector
+        languageSelector.addEventListener('change', (e) => {
+            const selectedLanguage = e.target.value;
+            updateLanguage(selectedLanguage);
+        });
+
+        // Check for saved language preference
+        const savedLanguage = localStorage.getItem('avanya-language-preference') || 'en';
+        updateLanguage(savedLanguage);
+        languageSelector.value = savedLanguage;
+
+        // Add click event listeners to all login buttons
+        document.querySelectorAll('.login-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const currentLang = languageSelector.value;
+                let userType = '';
+
+                // Extract user type based on current language (using textContent now)
+                if (currentLang === 'en') {
+                    userType = this.textContent.replace('Login as ', '');
+                } else if (currentLang === 'mr') {
+                    userType = this.textContent.replace('अॅडमिन म्हणून लॉगिन करा', 'Admin')
+                                       .replace('शिक्षक म्हणून लॉगिन करा', 'Teacher')
+                                       .replace('विद्यार्थी म्हणून लॉगिन करा', 'Student')
+                                       .replace('पालक म्हणून लॉगिन करा', 'Parent');
+                } else if (currentLang === 'hi') {
+                    userType = this.textContent.replace('एडमिन के रूप में लॉगिन करें', 'Admin')
+                                       .replace('शिक्षक के रूप में लॉगिन करें', 'Teacher')
+                                       .replace('छात्र के रूप में लॉगिन करें', 'Student')
+                                       .replace('अभिभावक के रूप में लॉगिन करें', 'Parent');
+                } else if (currentLang === 'ar') {
+                    userType = this.textContent.replace('تسجيل الدخول كمسؤول', 'Admin')
+                                       .replace('تسجيل الدخول كمدرس', 'Teacher')
+                                       .replace('تسجيل الدخول كطالب', 'Student')
+                                       .replace('تسجيل الدخول كولي أمر', 'Parent');
+                }
+
+                alert(`${userType} login page will load here...`);
+                // In a real application, you would redirect to the appropriate login page
+            });
+        });
+    </script>
+</body>
+</html>

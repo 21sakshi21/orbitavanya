@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AVANYA AI</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --sidebar-width: 250px;
+      --sidebar-bg: #042758;
+      --sidebar-color: #e6f0ff;
+      --sidebar-hover-bg: #275daf;
+      --sidebar-active-bg: #1663d7;
+      --main-bg: #f0f8ff;
+      --primary-blue: #042044;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--main-bg);
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background-color: var(--sidebar-bg);
+      color: var(--sidebar-color);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-brand img {
+      height: 32px;
+      margin-right: 10px;
+    }
+
+    .sidebar-nav {
+      padding: 0;
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      position: relative;
+    }
+
+    .sidebar-nav li a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: var(--sidebar-color);
+      text-decoration: none;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-nav li a:hover {
+      background-color: var(--sidebar-hover-bg);
+      border-left: 3px solid var(--sidebar-color);
+    }
+
+    .sidebar-nav li a.active {
+      background-color: var(--sidebar-active-bg);
+      border-left: 3px solid white;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .sidebar-nav li a i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav li a:hover i {
+      transform: scale(1.1);
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 20px;
+      background-color: #f6f6f7;
+      min-height: 100vh;
+    }
+
+    .sidebar-collapse-btn {
+      display: none;
+    }
+
+    .badge-active {
+      background-color: #c0c4c1;
+      color: black;
+    }
+
+    .badge-inactive {
+      background-color: #f72525;
+      color: black;
+    }
+
+    .table-responsive {
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-primary, .btn-success {
+      background-color: var(--primary-blue);
+      border-color: var(--primary-blue);
+    }
+
+    .btn-primary:hover, .btn-success:hover {
+      background-color: #0d5bcd;
+      border-color: #0d5bcd;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        margin-left: -var(--sidebar-width);
+      }
+
+      .sidebar.active {
+        margin-left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .main-content.active {
+        margin-left: var(--sidebar-width);
+      }
+
+      .sidebar-collapse-btn {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <img src="logo.png" alt="Logo">
+      AVANYA
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li><a href="#" class="active"><i class="fas fa-users"></i> Students</a></li>
+      <li><a href="#"><i class="fas fa-book"></i> Courses</a></li>
+      <li><a href="#"><i class="fas fa-calendar-check"></i> Attendance</a></li>
+      <li><a href="#"><i class="fas fa-clipboard-list"></i> Exams</a></li>
+      <li><a href="#"><i class="fas fa-briefcase"></i> E-Office</a></li>
+      <li><a href="#"><i class="fas fa-calendar-alt"></i> Timetable</a></li>
+      <li><a href="#"><i class="fas fa-money-bill-wave"></i> Fees</a></li>
+      <li><a href="#"><i class="fas fa-user-tie"></i> HR & Payroll</a></li>
+      <li><a href="#"><i class="fas fa-book-open"></i> Library</a></li>
+      <li><a href="#"><i class="fas fa-bus"></i> Transport</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="mb-0" style="color: var(--primary-blue);">Students</h1>
+      <button class="btn btn-primary d-none d-md-block sidebar-collapse-btn" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Search & Add -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="input-group search-box">
+          <input type="text" class="form-control" placeholder="Search..." id="searchInput">
+          <button class="btn btn-outline-secondary" type="button" id="searchButton">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6 text-md-end mt-2 mt-md-0">
+        <button class="btn btn-success" id="addStudentBtn">
+          <i class="fas fa-plus"></i> Add Student
+        </button>
+      </div>
+    </div>
+
+    <!-- Student Table -->
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Student ID</th>
+            <th>Class</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody">
+          <!-- Dynamic Content -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add Student Modal -->
+  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="studentForm">
+            <div class="mb-3">
+              <label for="studentName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="studentName" required>
+            </div>
+            <div class="mb-3">
+              <label for="studentId" class="form-label">Student ID</label>
+              <input type="text" class="form-control" id="studentId" required>
+            </div>
+            <div class="mb-3">
+              <label for="studentClass" class="form-label">Class</label>
+              <select class="form-select" id="studentClass" required>
+                <option value="">Select Class</option>
+                <option value="10A">10A</option>
+                <option value="11B">11B</option>
+                <option value="12C">12C</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="status" id="statusActive" value="Active" checked>
+                <label class="form-check-label" for="statusActive">Active</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="status" id="statusInactive" value="Inactive">
+                <label class="form-check-label" for="statusInactive">Inactive</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveStudentBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    let students = [
+      { id: 1, name: "Jane Doe", studentId: "S-001", class: "10A", status: "Active" },
+      { id: 2, name: "John Smith", studentId: "S-002", class: "11B", status: "Active" },
+      { id: 3, name: "Alice Johnson", studentId: "S-003", class: "10A", status: "Active" },
+      { id: 4, name: "Bob Brown", studentId: "S-004", class: "12C", status: "Inactive" }
+    ];
+
+    const studentTableBody = document.getElementById('studentTableBody');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.querySelector('.sidebar');
+    const mainContent = document.querySelector('.main-content');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const addStudentBtn = document.getElementById('addStudentBtn');
+    const saveStudentBtn = document.getElementById('saveStudentBtn');
+    const studentForm = document.getElementById('studentForm');
+    const addStudentModal = new bootstrap.Modal(document.getElementById('addStudentModal'));
+
+    document.addEventListener('DOMContentLoaded', function () {
+      sidebarToggle.addEventListener('click', function () {
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('active');
+      });
+
+      searchButton.addEventListener('click', searchStudents);
+      searchInput.addEventListener('keyup', function (e) {
+        if (e.key === 'Enter') searchStudents();
+      });
+
+      addStudentBtn.addEventListener('click', function () {
+        studentForm.reset();
+        addStudentModal.show();
+      });
+
+      saveStudentBtn.addEventListener('click', function () {
+        const name = document.getElementById('studentName').value;
+        const studentId = document.getElementById('studentId').value;
+        const studentClass = document.getElementById('studentClass').value;
+        const status = document.querySelector('input[name="status"]:checked').value;
+
+        if (name && studentId && studentClass) {
+          const newStudent = {
+            id: students.length + 1,
+            name,
+            studentId,
+            class: studentClass,
+            status
+          };
+          students.push(newStudent);
+          renderStudentTable();
+          addStudentModal.hide();
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('delete-btn') || e.target.closest('.delete-btn')) {
+          const btn = e.target.closest('.delete-btn');
+          const studentId = parseInt(btn.getAttribute('data-id'));
+          if (confirm('Are you sure you want to delete this student?')) {
+            students = students.filter(s => s.id !== studentId);
+            renderStudentTable();
+          }
+        }
+      });
+
+      renderStudentTable();
+    });
+
+    function renderStudentTable() {
+      studentTableBody.innerHTML = '';
+      students.forEach(student => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${student.name}</td>
+          <td>${student.studentId}</td>
+          <td>${student.class}</td>
+          <td><span class="badge ${student.status === 'Active' ? 'badge-active' : 'badge-inactive'}">${student.status}</span></td>
+          <td>
+            <button class="btn btn-sm btn-danger delete-btn" data-id="${student.id}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>`;
+        studentTableBody.appendChild(row);
+      });
+    }
+
+    function searchStudents() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const rows = studentTableBody.querySelectorAll('tr');
+      rows.forEach(row => {
+        const [name, id, cls] = [0, 1, 2].map(i => row.cells[i].textContent.toLowerCase());
+        row.style.display = (name.includes(searchTerm) || id.includes(searchTerm) || cls.includes(searchTerm)) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

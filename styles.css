@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   }
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('darkBlueBg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    height: 100px;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.logo-text {
+    text-align: left;
+}
+
+.logo h1 {
+    color: #f3f6f7;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.logo p {
+    color: #e1eeef;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.login-btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: white;
+    border: 2px solid rgba(64, 192, 239, 0.488);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    gap: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.login-btn img {
+    height: 20px; 
+    width: auto;
+}
+
+.login-btn:hover {
+    background-color: #2d2bc0;
+    transform: translateY(-2px);
+}
+
+.language-selector {
+    margin-top: 20px;
+    color: white;
+    font-size: 14px;
+}
+
+.language-selector select {
+    color: white;
+    background-color: black;
+    border-radius: 4px;
+    padding: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* RTL Styles */
+body[dir="rtl"] .logo {
+    flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .logo-text {
+    text-align: right;
+}
+
+body[dir="rtl"] .login-btn {
+    flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .language-selector {
+    direction: rtl;
+}
+
+body[dir="rtl"] .language-selector select {
+    margin-left: 0;
+    margin-right: 5px;
+}
